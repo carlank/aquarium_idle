@@ -80,6 +80,17 @@ offset_bottom = 191.0
 layout_mode = 2
 text = "Quit"
 
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=981894904]
+offset_left = 16.0
+offset_top = 117.0
+offset_right = 531.0
+offset_bottom = 414.0
+text = "Buy a minnow fry to get started!
+
+Click on coins to collect them (until you buy Autocollect!)
+
+Selling fish is profitable!"
+
 [connection signal="request_add_coins" from="Tank" to="." method="add_coins"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/BuyVacuum" to="." method="buy_vacuum"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/BuyCollectionRadius" to="." method="buy_collection_radius"]
