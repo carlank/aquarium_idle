@@ -17,15 +17,13 @@ fish_scene = ExtResource("2_h2yge")
 fish_store_entry_scene = ExtResource("4_1bvp3")
 
 [node name="Tank" parent="." unique_id=1151820409 instance=ExtResource("1_ig7tw")]
-position = Vector2(640, 60)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1438954503]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1242713700]
-offset_left = 475.0
-offset_top = 564.0
-offset_right = 1415.0
-offset_bottom = 957.0
+offset_top = 480.0
+offset_right = 940.0
+offset_bottom = 873.0
 theme_override_constants/separation = 32
 
 [node name="Info" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=766915475]
@@ -73,23 +71,13 @@ layout_mode = 2
 text = "Buy +1 Capacity - 100 coins"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=1560913403]
+visible = false
 offset_right = 469.0
 offset_bottom = 191.0
 
 [node name="Quit" type="Button" parent="CanvasLayer/VBoxContainer2" unique_id=1655462004]
 layout_mode = 2
 text = "Quit"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=981894904]
-offset_left = 16.0
-offset_top = 117.0
-offset_right = 531.0
-offset_bottom = 414.0
-text = "Buy a minnow fry to get started!
-
-Click on coins to collect them (until you buy Autocollect!)
-
-Selling fish is profitable!"
 
 [connection signal="request_add_coins" from="Tank" to="." method="add_coins"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/BuyVacuum" to="." method="buy_vacuum"]
