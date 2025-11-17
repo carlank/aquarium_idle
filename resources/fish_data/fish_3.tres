@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FishData" load_steps=3 format=3 uid="uid://cuhtgu6nlqtqj"]
+
+[ext_resource type="Script" uid="uid://b2wviu27f6v5i" path="res://resources/fish_data/fish_data.gd" id="1_ynryc"]
+[ext_resource type="SpriteFrames" uid="uid://pwcxhaawgpns" path="res://resources/fish_data/fish_3_sprite_frams.tres" id="2_6pkye"]
+
+[resource]
+script = ExtResource("1_ynryc")
+name = "Betta"
+sprite_frames = ExtResource("2_6pkye")
+cost = 1000
+sell_price = 1200
+thrust_max = 350.0
+lift_max = 25.0
+lift_delta_max = 5.0
+reward_delay = 0.5
+growth_delay = 30.0
+metadata/_custom_type_script = "uid://b2wviu27f6v5i"

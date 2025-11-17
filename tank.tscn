@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://c56ihb2x7uc81"]
+
+[ext_resource type="Texture2D" uid="uid://c6ngaq7x001x4" path="res://art/tank_1.png" id="1_6lwfj"]
+[ext_resource type="Script" uid="uid://da35n6kdikxpx" path="res://tank.gd" id="1_yfqcd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1ealj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6lwfj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a62es"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yfqcd"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lk6ub"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_i433e"]
+normal = Vector2(1, 0)
+
+[node name="Tank" type="Node2D" unique_id=1151820409]
+script = ExtResource("1_yfqcd")
+
+[node name="Background" type="AnimatedSprite2D" parent="." unique_id=243119212]
+sprite_frames = SubResource("SpriteFrames_1ealj")
+centered = false
+
+[node name="Edges" type="Node2D" parent="Background" unique_id=1012402812]
+
+[node name="Top" type="StaticBody2D" parent="Background/Edges" unique_id=2091837449]
+position = Vector2(320, 16)
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Edges/Top" unique_id=907876415]
+shape = SubResource("WorldBoundaryShape2D_a62es")
+
+[node name="Right" type="StaticBody2D" parent="Background/Edges" unique_id=865838802]
+position = Vector2(624, 240)
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Edges/Right" unique_id=1748056950]
+shape = SubResource("WorldBoundaryShape2D_yfqcd")
+
+[node name="Bottom" type="StaticBody2D" parent="Background/Edges" unique_id=251133024]
+position = Vector2(320, 464)
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Edges/Bottom" unique_id=2075689885]
+shape = SubResource("WorldBoundaryShape2D_lk6ub")
+
+[node name="Left" type="StaticBody2D" parent="Background/Edges" unique_id=409997311]
+position = Vector2(16, 240)
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Edges/Left" unique_id=793850536]
+shape = SubResource("WorldBoundaryShape2D_i433e")

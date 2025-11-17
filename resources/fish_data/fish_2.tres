@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FishData" load_steps=3 format=3 uid="uid://bc1qf78fsjdlk"]
+
+[ext_resource type="Script" uid="uid://b2wviu27f6v5i" path="res://resources/fish_data/fish_data.gd" id="1_1btqt"]
+[ext_resource type="SpriteFrames" uid="uid://bghmekl7eqw0i" path="res://resources/fish_data/fish_2_sprite_frams.tres" id="2_sm4qf"]
+
+[resource]
+script = ExtResource("1_1btqt")
+name = "Guppy"
+sprite_frames = ExtResource("2_sm4qf")
+cost = 100
+sell_price = 150
+thrust_max = 20.0
+lift_max = 5.0
+reward_amount = 16
+reward_delay = 10.0
+metadata/_custom_type_script = "uid://b2wviu27f6v5i"

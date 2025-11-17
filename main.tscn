@@ -1,0 +1,86 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7yhxqy5hnapm"]
+
+[ext_resource type="Script" uid="uid://4b8u0hshq48u" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://c56ihb2x7uc81" path="res://tank.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://b2wviu27f6v5i" path="res://resources/fish_data/fish_data.gd" id="2_5vw27"]
+[ext_resource type="PackedScene" uid="uid://ru5yvdslo2xo" path="res://fish.tscn" id="2_h2yge"]
+[ext_resource type="Resource" uid="uid://dva0mhhqhl50v" path="res://resources/fish_data/fish_1.tres" id="3_kek77"]
+[ext_resource type="PackedScene" uid="uid://re848yexjdnp" path="res://fish_store_entry.tscn" id="4_1bvp3"]
+[ext_resource type="Resource" uid="uid://cuhtgu6nlqtqj" path="res://resources/fish_data/fish_3.tres" id="5_7mycd"]
+[ext_resource type="Resource" uid="uid://bc1qf78fsjdlk" path="res://resources/fish_data/fish_2.tres" id="6_272bh"]
+
+[node name="Main" type="Node2D" unique_id=285312688]
+script = ExtResource("1_0xm2m")
+store_fish = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("6_272bh"), ExtResource("5_7mycd")])
+fish_scene = ExtResource("2_h2yge")
+fish_store_entry_scene = ExtResource("4_1bvp3")
+
+[node name="Tank" parent="." unique_id=1151820409 instance=ExtResource("1_ig7tw")]
+position = Vector2(640, 60)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1438954503]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1242713700]
+offset_left = 475.0
+offset_top = 564.0
+offset_right = 1415.0
+offset_bottom = 957.0
+theme_override_constants/separation = 32
+
+[node name="Info" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=766915475]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CoinsLabel" type="Label" parent="CanvasLayer/VBoxContainer/Info" unique_id=671499398]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Coins
+0"
+horizontal_alignment = 1
+
+[node name="CapacityLabel" type="Label" parent="CanvasLayer/VBoxContainer/Info" unique_id=219065802]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Fish
+0 / 10"
+horizontal_alignment = 1
+
+[node name="CollectionRadiusLabel" type="Label" parent="CanvasLayer/VBoxContainer/Info" unique_id=1228769925]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Collect Distance
+1"
+horizontal_alignment = 1
+
+[node name="Store" type="VBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1603184230]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BuyVacuum" type="Button" parent="CanvasLayer/VBoxContainer/Store" unique_id=170688226]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Buy AutoCollect - 50 coins"
+
+[node name="BuyCollectionRadius" type="Button" parent="CanvasLayer/VBoxContainer/Store" unique_id=439099570]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Buy +1 Merge/Collect Distance - 50 coins"
+
+[node name="BuyCapacity" type="Button" parent="CanvasLayer/VBoxContainer/Store" unique_id=1610377529]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Buy +1 Capacity - 100 coins"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=1560913403]
+offset_right = 469.0
+offset_bottom = 191.0
+
+[node name="Quit" type="Button" parent="CanvasLayer/VBoxContainer2" unique_id=1655462004]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="request_add_coins" from="Tank" to="." method="add_coins"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/BuyVacuum" to="." method="buy_vacuum"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/BuyCollectionRadius" to="." method="buy_collection_radius"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/BuyCapacity" to="." method="buy_capacity"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer2/Quit" to="." method="quit"]

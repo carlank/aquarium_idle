@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3 uid="uid://2rbhi4ba71fi"]
+
+[ext_resource type="Script" uid="uid://n6t6tq2anhko" path="res://coin.gd" id="1_0t63x"]
+[ext_resource type="Texture2D" uid="uid://bw3u8xb2nrjxt" path="res://art/coin_1.png" id="2_v7riw"]
+[ext_resource type="Script" uid="uid://bk55cwrc7alon" path="res://collect_radius.gd" id="3_v7riw"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0t63x"]
+bounce = 0.5
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i433e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_v7riw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mh3tg"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0t63x"]
+radius = 8.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_0t63x"]
+resource_local_to_scene = true
+
+[node name="Coin" type="RigidBody2D" unique_id=55991682 node_paths=PackedStringArray("value_label")]
+collision_layer = 4
+collision_mask = 7
+input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_0t63x")
+script = ExtResource("1_0t63x")
+value_label = NodePath("ValueLabel")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=89599192]
+sprite_frames = SubResource("SpriteFrames_i433e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=908926187]
+shape = SubResource("CircleShape2D_mh3tg")
+
+[node name="CollectArea2D" type="Area2D" parent="." unique_id=1050676536]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea2D" unique_id=974075433]
+shape = SubResource("CircleShape2D_0t63x")
+
+[node name="CollectRadius" type="Node2D" parent="CollectArea2D" unique_id=964570465]
+show_behind_parent = true
+script = ExtResource("3_v7riw")
+
+[node name="ValueLabel" type="Label" parent="." unique_id=342520141]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -11.5
+offset_right = 5.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+label_settings = SubResource("LabelSettings_0t63x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="area_entered" from="CollectArea2D" to="." method="_on_collect_area_2d_area_entered"]
+[connection signal="input_event" from="CollectArea2D" to="." method="_on_collect_area_2d_input_event"]

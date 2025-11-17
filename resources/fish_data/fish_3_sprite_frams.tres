@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://pwcxhaawgpns"]
+
+[ext_resource type="Texture2D" uid="uid://brt4go2c61qj0" path="res://art/fish_3.png" id="1_qwy8h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqnb4"]
+atlas = ExtResource("1_qwy8h")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mlf3"]
+atlas = ExtResource("1_qwy8h")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqnb4")
+}],
+"loop": true,
+"name": &"growth_1_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mlf3")
+}],
+"loop": true,
+"name": &"growth_2_idle",
+"speed": 5.0
+}]
