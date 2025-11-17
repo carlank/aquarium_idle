@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bucxcjuh2x5pu"
-path="res://.godot/imported/Aquarium Idle.apple-touch-icon.png-515168b8d70408e5c0dbc8595fd4a1bd.ctex"
+uid="uid://ce5e55otl3n3e"
+path="res://.godot/imported/crab.png-012345d81124c8fe03846ff1aac4c2cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/Aquarium Idle.apple-touch-icon.png"
-dest_files=["res://.godot/imported/Aquarium Idle.apple-touch-icon.png-515168b8d70408e5c0dbc8595fd4a1bd.ctex"]
+source_file="res://art/crab.png"
+dest_files=["res://.godot/imported/crab.png-012345d81124c8fe03846ff1aac4c2cd.ctex"]
 
 [params]
 

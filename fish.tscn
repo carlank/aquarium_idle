@@ -34,7 +34,7 @@ region = Rect2(0, 8, 8, 8)
 
 [node name="Fish" type="CharacterBody2D" unique_id=1222689378]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_6ik3a")
 reward_scene = ExtResource("2_oovoc")
@@ -48,6 +48,8 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_yfqcd")
 
 [node name="GrabArea2D" type="Area2D" parent="." unique_id=918671456]
+collision_layer = 256
+collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea2D" unique_id=1063526544]
 shape = SubResource("CircleShape2D_oovoc")

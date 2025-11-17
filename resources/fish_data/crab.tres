@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="FishData" load_steps=3 format=3 uid="uid://dfhwybhrn01qr"]
+
+[ext_resource type="Script" uid="uid://b2wviu27f6v5i" path="res://resources/fish_data/fish_data.gd" id="1_xuamb"]
+[ext_resource type="SpriteFrames" uid="uid://dy3nvl40xww48" path="res://resources/fish_data/crab_sprite_frames.tres" id="2_xuamb"]
+
+[resource]
+script = ExtResource("1_xuamb")
+name = "Crab"
+sprite_frames = ExtResource("2_xuamb")
+cost = 500
+sell_price = 500
+swimmer = false
+thrust_max = 20.0
+lift_delta_max = 10.0
+reward_delay = 60.0
+collects_coins = true
+growth_delay = 0.1
+metadata/_custom_type_script = "uid://b2wviu27f6v5i"

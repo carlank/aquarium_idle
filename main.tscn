@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c7yhxqy5hnapm"]
+[gd_scene load_steps=10 format=3 uid="uid://c7yhxqy5hnapm"]
 
 [ext_resource type="Script" uid="uid://4b8u0hshq48u" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://c56ihb2x7uc81" path="res://tank.tscn" id="1_ig7tw"]
@@ -7,11 +7,12 @@
 [ext_resource type="Resource" uid="uid://dva0mhhqhl50v" path="res://resources/fish_data/fish_1.tres" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://re848yexjdnp" path="res://fish_store_entry.tscn" id="4_1bvp3"]
 [ext_resource type="Resource" uid="uid://cuhtgu6nlqtqj" path="res://resources/fish_data/fish_3.tres" id="5_7mycd"]
+[ext_resource type="Resource" uid="uid://dfhwybhrn01qr" path="res://resources/fish_data/crab.tres" id="5_kek77"]
 [ext_resource type="Resource" uid="uid://bc1qf78fsjdlk" path="res://resources/fish_data/fish_2.tres" id="6_272bh"]
 
 [node name="Main" type="Node2D" unique_id=285312688]
 script = ExtResource("1_0xm2m")
-store_fish = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("6_272bh"), ExtResource("5_7mycd")])
+store_fish = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("6_272bh"), ExtResource("5_kek77"), ExtResource("5_7mycd")])
 fish_scene = ExtResource("2_h2yge")
 fish_store_entry_scene = ExtResource("4_1bvp3")
 

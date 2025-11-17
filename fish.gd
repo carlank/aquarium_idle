@@ -51,23 +51,35 @@ func _physics_process(delta: float) -> void:
 	if _dragging:
 		global_position = lerp(global_position, get_global_mouse_position(), 0.5)
 		#return
-	lift_delta = randf_range(-fish_data.lift_delta_max, fish_data.lift_delta_max)
-	lift += lift_delta
-	lift = clampf(lift, -fish_data.lift_max, fish_data.lift_max)
-	velocity = Vector2(fish_data.thrust_max * direction, lift)
-	#rotation = (acos(lift/thrust) - TAU/4.0) if direction < 0 else (TAU/4.0 - acos(lift/thrust))
-	rotation = velocity.angle() - TAU/2 if direction < 0 else velocity.angle()
+	if fish_data.swimmer:
+		lift_delta = randf_range(-fish_data.lift_delta_max, fish_data.lift_delta_max)
+		lift += lift_delta
+		lift = clampf(lift, -fish_data.lift_max, fish_data.lift_max)
+		velocity = Vector2(fish_data.thrust_max * direction, lift)
+		#rotation = (acos(lift/thrust) - TAU/4.0) if direction < 0 else (TAU/4.0 - acos(lift/thrust))
+		rotation = velocity.angle() - TAU/2 if direction < 0 else velocity.angle()
+	else:
+		velocity.x = fish_data.thrust_max * direction
+		if position.y < 448:
+			velocity.y += 10
+		velocity *= 0.9
 	var collision_info := move_and_collide(velocity * delta)
 	if antiThrashFrames > 0:
 		antiThrashFrames -= 1
 	if collision_info and antiThrashFrames == 0:
 		var normal = collision_info.get_normal()
+		if velocity.length_squared() < 100:
+			velocity = Vector2.ZERO
 		velocity = velocity.bounce(normal)
 		if abs(normal.x) > abs(normal.y):
 			flip_h()
 		else:
 			flip_y()
 		antiThrashFrames = 10
+		if fish_data.collects_coins:
+			var collider = collision_info.get_collider()
+			if collider is Coin:
+				collider.collect()
 		
 func _process(delta: float) -> void:
 	if growth_timer.is_stopped():

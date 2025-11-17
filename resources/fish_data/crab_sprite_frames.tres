@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://dy3nvl40xww48"]
+
+[ext_resource type="Texture2D" uid="uid://ce5e55otl3n3e" path="res://art/crab.png" id="1_f482h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81mvi"]
+atlas = ExtResource("1_f482h")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dck6a"]
+atlas = ExtResource("1_f482h")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81mvi")
+}],
+"loop": true,
+"name": &"growth_1_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dck6a")
+}],
+"loop": true,
+"name": &"growth_2_idle",
+"speed": 5.0
+}]

@@ -35,8 +35,11 @@ func _on_collect_area_2d_input_event(viewport: Node, event: InputEvent, shape_id
 	var is_mouse_move := event is InputEventMouseMotion
 	var vacuum_pickup := is_mouse_move and Player.has_vacuum
 	if event.is_action_pressed("collect") or vacuum_pickup:
-		queue_free()
-		SignalBus.coin_collected.emit(value)
+		collect()
+
+func collect() -> void:
+	queue_free()
+	SignalBus.coin_collected.emit(value)
 
 
 func _on_collect_area_2d_area_entered(area: Area2D) -> void:
