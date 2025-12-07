@@ -77,7 +77,10 @@ fill_mode = 4
 texture_under = SubResource("AtlasTexture_10mov")
 texture_progress = SubResource("AtlasTexture_xn1kp")
 
+[node name="SpawnTimer" type="Timer" parent="." unique_id=1315652933]
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="input_event" from="GrabArea2D" to="." method="_on_grab_area_2d_input_event"]
 [connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
 [connection signal="timeout" from="GrowthTimer" to="." method="_on_growth_timer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

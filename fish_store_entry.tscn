@@ -44,14 +44,6 @@ per coin"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Cost" type="RichTextLabel" parent="HBoxContainer" unique_id=1435761332]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "10 coins"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="GrowthDelay" type="RichTextLabel" parent="HBoxContainer" unique_id=1921302986]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -60,7 +52,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Buy" type="Button" parent="HBoxContainer" unique_id=764498067]
-modulate = Color(0, 1, 0, 1)
+modulate = Color(0.1425969, 0.49571818, 0.637926, 1)
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "Buy
@@ -69,13 +61,13 @@ text = "Buy
 [node name="Quantity" type="RichTextLabel" parent="HBoxContainer" unique_id=1146690436]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "0 / 0
-fry / adult"
+text = "0 - 0
+fry - adult"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Sell" type="Button" parent="HBoxContainer" unique_id=1716006819]
-modulate = Color(1, 0, 0, 1)
+modulate = Color(0.04049999, 0.45, 0.074624956, 1)
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "Sell Adult

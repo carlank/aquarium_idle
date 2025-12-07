@@ -4,7 +4,6 @@ class_name FishStoreEntry
 @onready var name_label: RichTextLabel = $HBoxContainer/Name
 @onready var drop_amount_label: RichTextLabel = $HBoxContainer/DropAmount
 @onready var drop_delay_label: RichTextLabel = $HBoxContainer/DropDelay
-@onready var cost_label: RichTextLabel = $HBoxContainer/Cost
 @onready var growth_delay_label: RichTextLabel = $HBoxContainer/GrowthDelay
 @onready var quantity_label: RichTextLabel = $HBoxContainer/Quantity
 @onready var buy_button: Button = $HBoxContainer/Buy
@@ -37,7 +36,6 @@ func update_text() -> void:
 	name_label.text = fish.name
 	drop_amount_label.text = str(fish.reward_amount) + " coins\nper drop"
 	drop_delay_label.text = str(fish.reward_delay) + "s\nper drop"
-	cost_label.text = str(fish.cost) + " coins"
 	growth_delay_label.text = str(fish.growth_delay) + "s\nto adult"
 	buy_button.text = "Buy Fry\n" + str(fish.cost) + " coins"
 	sell_button.text = "Sell Adult\n" + str(fish.sell_price) + " coins"

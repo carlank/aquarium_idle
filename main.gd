@@ -1,4 +1,5 @@
 extends Node2D
+class_name Main
 
 @onready var coins_label: Label = %CoinsLabel
 @onready var capacity_label: Label = %CapacityLabel
@@ -18,6 +19,8 @@ extends Node2D
 @export var fish_scene: PackedScene
 @export var fish_store_entry_scene: PackedScene
 
+var produced = {}
+
 var vacuum_cost := 50
 var capacity_cost := 100
 var collection_radius_cost := 50
@@ -34,8 +37,14 @@ func _ready() -> void:
 	set_collection_radius_label()
 	Player.coin_lifespan_changed.connect(func (old,new): set_coin_lifespan_label())
 	set_coin_lifespan_label()
+	var unlock = preload("res://unlocks/unlock.tscn")
 	for fish_data in store_fish:
 		var fish_store_entry = fish_store_entry_scene.instantiate()
+		var unlock_instance : Unlock = unlock.instantiate()
+		unlock_instance.setup(fish_data.name, fish_data.cost/10, fish_store_entry)
+		unlocks.append(unlock_instance)
+		fish_store_entry.add_child(unlock_instance)
+		unlock_instance.update()
 		store.add_child(fish_store_entry)
 		if fish_store_entry is FishStoreEntry:
 			fish_store_entry.fish = fish_data
@@ -50,7 +59,8 @@ func handle_coins_changed(old, new):
 	buy_capacity_button.disabled = new < capacity_cost
 	buy_collection_radius_button.disabled = new < collection_radius_cost
 	buy_coin_lifespan_button.disabled = new < coin_lifespan_cost || len(tank.fishes) < 1
-
+	if quantity_multiplier == -1:
+		update_store()
 
 func quit() -> void:
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
@@ -66,11 +76,23 @@ func set_coin_lifespan_label() -> void:
 	coin_lifespan_label.text = "Coin Lifespan\n" + str(Player.coin_lifespan)
 
 func buy_fish(fish_data, fish_store_entry) -> void:
+	if quantity_multiplier == -1:
+		while Player.coins >= fish_data.cost and len(tank.fishes) < tank.capacity:
+			print("Player.coins %s, fish_data.cost %s" % [Player.coins, fish_data.cost])
+			_buy_fish(fish_data, fish_store_entry)
+	else:
+		for i in range(quantity_multiplier):
+			_buy_fish(fish_data, fish_store_entry)
+			
+func _buy_fish(fish_data, fish_store_entry) -> void:
 	var fish = add_fish(fish_data)
 	if fish != null:
 		var update_quantity = func():fish_store_entry.update_quantity(tank.how_many_fry(fish.fish_data), tank.how_many_fish(fish.fish_data))
 		fish.grew.connect(update_quantity)
 		update_quantity.call()
+		if fish_data.name not in produced:
+			produced[fish_data.name] = 0
+		produced[fish_data.name] += 1
 
 func add_fish(fish_data) -> Fish:
 	if Player.spend_coins(fish_data.cost):
@@ -86,6 +108,14 @@ func add_fish(fish_data) -> Fish:
 	return null
 
 func sell_fish(fish_data, fish_store_entry = null) -> void:
+	if quantity_multiplier == -1:
+		while tank.how_many_fish(fish_data) > 0:
+			_sell_fish(fish_data, fish_store_entry)
+	else:
+		for i in range(quantity_multiplier):
+			_sell_fish(fish_data, fish_store_entry)
+			
+func _sell_fish(fish_data, fish_store_entry) -> void:
 	var to_erase = tank.fishes.find_custom(func(f):return f.fish_data == fish_data and f.is_adult)
 	if to_erase == -1:
 		return
@@ -107,14 +137,14 @@ func buy_vacuum() -> void:
 		
 func buy_capacity() -> void:
 	if Player.spend_coins(capacity_cost):
-		capacity_cost = ceili(capacity_cost * 2)
+		capacity_cost = ceili(capacity_cost * 1.5)
 		tank.capacity += 1
 		buy_capacity_button.text = "Buy +1 Capacity - " + str(capacity_cost) + " coins"
 		set_capacity_label()
 
 func buy_collection_radius() -> void:
 	if Player.spend_coins(collection_radius_cost):
-		collection_radius_cost = ceili(collection_radius_cost * 2)
+		collection_radius_cost = ceili(collection_radius_cost * 1.7)
 		Player.add_collection_radius(1)
 		buy_collection_radius_button.text = "Buy +1 Merge/Collect Distance - " + str(collection_radius_cost) + " coins"
 
@@ -155,3 +185,32 @@ func _on_update_timer_timeout() -> void:
 	handle_coins_changed(Player.coins, Player.coins)
 
 #endregion
+
+@onready var quantity_buttons: HBoxContainer = $CanvasLayer/VBoxContainer/Store/QuantityButtons
+var quantity_multiplier := 1
+var quantities : Array[int]= [
+	1,5,10,25,-1
+]
+func _on_quantity_button_pressed() -> void:
+	var children := quantity_buttons.get_children()
+	for i in range(len(children)):
+		var option := children[i]
+		if option is Button:
+			if option.button_pressed:
+				quantity_multiplier = quantities[i]
+				update_store()
+
+func update_store():
+	var children: Array[Node] = store.get_children().filter(func(child):return child is FishStoreEntry)
+	for i in range(len(children)):
+		var store_entry := children[i]
+		if store_entry is FishStoreEntry:
+			if quantity_multiplier == -1:
+				var quantity_to_buy := mini(Player.coins / store_fish[i].cost, tank.capacity - len(tank.fishes))
+				var quantity_to_sell := tank.how_many_fish(store_fish[i])
+				store_entry.buy_button.text = "Buy %s Fry - Max\n%s coins" % [quantity_to_buy, store_fish[i].cost * quantity_to_buy]
+				store_entry.sell_button.text = "Sell %s Adults - Max\n%s coins" % [quantity_to_sell, store_fish[i].sell_price * quantity_to_sell]
+				print("----\nq2b: %s\nq2s: %s\n" % [quantity_to_buy, quantity_to_sell])
+			else:
+				store_entry.buy_button.text = "Buy %s Fry\n%s coins" % [quantity_multiplier, store_fish[i].cost * quantity_multiplier]
+				store_entry.sell_button.text = "Sell %s Adults\n%s coins" % [quantity_multiplier, store_fish[i].sell_price * quantity_multiplier]

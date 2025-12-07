@@ -1,26 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://c7yhxqy5hnapm"]
+[gd_scene load_steps=5 format=3 uid="uid://c7yhxqy5hnapm"]
 
 [ext_resource type="Script" uid="uid://4b8u0hshq48u" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://c56ihb2x7uc81" path="res://tank.tscn" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://b2wviu27f6v5i" path="res://resources/fish_data/fish_data.gd" id="2_5vw27"]
-[ext_resource type="PackedScene" uid="uid://ru5yvdslo2xo" path="res://fish.tscn" id="2_h2yge"]
-[ext_resource type="Resource" uid="uid://dva0mhhqhl50v" path="res://resources/fish_data/fish_1.tres" id="3_kek77"]
-[ext_resource type="PackedScene" uid="uid://re848yexjdnp" path="res://fish_store_entry.tscn" id="4_1bvp3"]
-[ext_resource type="Resource" uid="uid://cuhtgu6nlqtqj" path="res://resources/fish_data/fish_3.tres" id="5_7mycd"]
-[ext_resource type="Resource" uid="uid://dfhwybhrn01qr" path="res://resources/fish_data/crab.tres" id="5_kek77"]
-[ext_resource type="Resource" uid="uid://bc1qf78fsjdlk" path="res://resources/fish_data/fish_2.tres" id="6_272bh"]
-[ext_resource type="Resource" uid="uid://ll1od5oia73f" path="res://resources/fish_data/fish_4.tres" id="7_w48qg"]
-[ext_resource type="Resource" uid="uid://c6tgjf88vdcju" path="res://resources/fish_data/fish_5.tres" id="8_vivmo"]
-[ext_resource type="Resource" uid="uid://31lpbmqswqq1" path="res://resources/fish_data/fish_6.tres" id="9_2cqfq"]
 [ext_resource type="Script" uid="uid://namdp7engtll" path="res://unlocks/unlock.gd" id="10_4c57u"]
-[ext_resource type="Resource" uid="uid://qmdwmhpdq1uj" path="res://resources/fish_data/fish_7.tres" id="10_yaehf"]
+[ext_resource type="ButtonGroup" uid="uid://ceqseaw2cf2l7" path="res://quantity_buttons_group.tres" id="14_vivmo"]
 
-[node name="Main" type="Node2D" unique_id=285312688 node_paths=PackedStringArray("unlocks")]
+[node name="Main" type="Node2D" unique_id=285312688]
 script = ExtResource("1_0xm2m")
-store_fish = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("6_272bh"), ExtResource("5_kek77"), ExtResource("5_7mycd"), ExtResource("7_w48qg"), ExtResource("8_vivmo"), ExtResource("9_2cqfq"), ExtResource("10_yaehf")])
-fish_scene = ExtResource("2_h2yge")
-fish_store_entry_scene = ExtResource("4_1bvp3")
-unlocks = [NodePath("CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyVacuum/Unlock"), NodePath("CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyCollectionRadius/Unlock"), NodePath("CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyCapacity/Unlock"), NodePath("CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyCoinLifespan/Unlock")]
 
 [node name="UpdateTimer" type="Timer" parent="." unique_id=441222982]
 autostart = true
@@ -72,51 +58,85 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HFlowContainer" parent="CanvasLayer/VBoxContainer/Store" unique_id=611494070]
+[node name="QuantityButtons" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/Store" unique_id=1796577415]
 layout_mode = 2
 
-[node name="BuyVacuum" type="Button" parent="CanvasLayer/VBoxContainer/Store/HBoxContainer" unique_id=170688226]
+[node name="x1" type="Button" parent="CanvasLayer/VBoxContainer/Store/QuantityButtons" unique_id=1313471442]
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+button_group = ExtResource("14_vivmo")
+text = "x 1"
+
+[node name="x5" type="Button" parent="CanvasLayer/VBoxContainer/Store/QuantityButtons" unique_id=1389338443]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("14_vivmo")
+text = "x 5"
+
+[node name="x10" type="Button" parent="CanvasLayer/VBoxContainer/Store/QuantityButtons" unique_id=2022750781]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("14_vivmo")
+text = "x 10"
+
+[node name="x25" type="Button" parent="CanvasLayer/VBoxContainer/Store/QuantityButtons" unique_id=1285323492]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("14_vivmo")
+text = "x 25"
+
+[node name="xMax" type="Button" parent="CanvasLayer/VBoxContainer/Store/QuantityButtons" unique_id=972454487]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("14_vivmo")
+text = "x Max"
+
+[node name="Upgrades" type="HFlowContainer" parent="CanvasLayer/VBoxContainer/Store" unique_id=611494070]
+layout_mode = 2
+
+[node name="BuyVacuum" type="Button" parent="CanvasLayer/VBoxContainer/Store/Upgrades" unique_id=170688226]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Buy AutoCollect - 50 coins"
 
-[node name="Unlock" type="Node" parent="CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyVacuum" unique_id=352529762 node_paths=PackedStringArray("to_hide")]
+[node name="Unlock" type="Node" parent="CanvasLayer/VBoxContainer/Store/Upgrades/BuyVacuum" unique_id=352529762 node_paths=PackedStringArray("to_hide")]
 script = ExtResource("10_4c57u")
 display_name = "Vacuum"
 coin_value = 40
 to_hide = NodePath("..")
 metadata/_custom_type_script = "uid://namdp7engtll"
 
-[node name="BuyCollectionRadius" type="Button" parent="CanvasLayer/VBoxContainer/Store/HBoxContainer" unique_id=439099570]
+[node name="BuyCollectionRadius" type="Button" parent="CanvasLayer/VBoxContainer/Store/Upgrades" unique_id=439099570]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Buy +1 Merge/Collect Distance - 50 coins"
 
-[node name="Unlock" type="Node" parent="CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyCollectionRadius" unique_id=2094757272 node_paths=PackedStringArray("to_hide")]
+[node name="Unlock" type="Node" parent="CanvasLayer/VBoxContainer/Store/Upgrades/BuyCollectionRadius" unique_id=2094757272 node_paths=PackedStringArray("to_hide")]
 script = ExtResource("10_4c57u")
 display_name = "Collection Radius"
 coin_value = 25
 to_hide = NodePath("..")
 metadata/_custom_type_script = "uid://namdp7engtll"
 
-[node name="BuyCapacity" type="Button" parent="CanvasLayer/VBoxContainer/Store/HBoxContainer" unique_id=1610377529]
+[node name="BuyCapacity" type="Button" parent="CanvasLayer/VBoxContainer/Store/Upgrades" unique_id=1610377529]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Buy +1 Capacity - 100 coins"
 
-[node name="Unlock" type="Node" parent="CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyCapacity" unique_id=905456928 node_paths=PackedStringArray("to_hide")]
+[node name="Unlock" type="Node" parent="CanvasLayer/VBoxContainer/Store/Upgrades/BuyCapacity" unique_id=905456928 node_paths=PackedStringArray("to_hide")]
 script = ExtResource("10_4c57u")
 display_name = "Capacity"
 coin_value = 75
 to_hide = NodePath("..")
 metadata/_custom_type_script = "uid://namdp7engtll"
 
-[node name="BuyCoinLifespan" type="Button" parent="CanvasLayer/VBoxContainer/Store/HBoxContainer" unique_id=1049566735]
+[node name="BuyCoinLifespan" type="Button" parent="CanvasLayer/VBoxContainer/Store/Upgrades" unique_id=1049566735]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Buy +1 Coin Lifespan - 1 coins"
 
-[node name="Unlock" type="Node" parent="CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyCoinLifespan" unique_id=1713803101 node_paths=PackedStringArray("to_hide")]
+[node name="Unlock" type="Node" parent="CanvasLayer/VBoxContainer/Store/Upgrades/BuyCoinLifespan" unique_id=1713803101 node_paths=PackedStringArray("to_hide")]
 script = ExtResource("10_4c57u")
 display_name = "Coin Lifespan"
 coin_value = 20
@@ -134,8 +154,13 @@ text = "Quit"
 
 [connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
 [connection signal="request_add_coins" from="Tank" to="." method="add_coins"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyVacuum" to="." method="buy_vacuum"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyCollectionRadius" to="." method="buy_collection_radius"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyCapacity" to="." method="buy_capacity"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/HBoxContainer/BuyCoinLifespan" to="." method="buy_coin_lifespan"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/QuantityButtons/x1" to="." method="_on_quantity_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/QuantityButtons/x5" to="." method="_on_quantity_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/QuantityButtons/x10" to="." method="_on_quantity_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/QuantityButtons/x25" to="." method="_on_quantity_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/QuantityButtons/xMax" to="." method="_on_quantity_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/Upgrades/BuyVacuum" to="." method="buy_vacuum"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/Upgrades/BuyCollectionRadius" to="." method="buy_collection_radius"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/Upgrades/BuyCapacity" to="." method="buy_capacity"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Store/Upgrades/BuyCoinLifespan" to="." method="buy_coin_lifespan"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer2/Quit" to="." method="quit"]

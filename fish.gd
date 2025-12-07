@@ -9,6 +9,9 @@ signal grew()
 @onready var drop_point: Node2D = $DropPoint
 @onready var growth_timer: Timer = $GrowthTimer
 @onready var growth_progress_bar: TextureProgressBar = $GrowthProgressBar
+@onready var spawn_timer: Timer = $SpawnTimer
+
+var fish_scene = preload("uid://ru5yvdslo2xo")
 
 var is_adult := false
 
@@ -24,8 +27,10 @@ var antiThrashFrames := 0
 	set(value):
 		fish_data = value
 		if animated_sprite_2d:
-			animated_sprite_2d.sprite_frames = value.sprite_frames
+			animated_sprite_2d.sprite_frames = fish_data.sprite_frames
 			animated_sprite_2d.animation = "growth_1_idle"
+		if fish_data.spawns_fish != null and fish_data.spawn_delay > 0:
+			spawn_timer.start(fish_data.spawn_delay)
 
 # Is this fish being dragged by the mouse?
 var _dragging := false
@@ -46,6 +51,11 @@ func grow() -> void:
 	drop_timer.start(fish_data.reward_delay)
 	animated_sprite_2d.animation = "growth_2_idle"
 	grew.emit()
+	
+func spawn() -> void:
+	var child_fish : Fish = fish_scene.instantiate()
+	child_fish.fish_data = fish_data
+	add_sibling(child_fish)
 
 func _physics_process(delta: float) -> void:
 	if _dragging:
@@ -100,6 +110,9 @@ func _on_drop_timer_timeout() -> void:
 	
 func _on_growth_timer_timeout() -> void:
 	grow()
+
+func _on_spawn_timer_timeout() -> void:
+	spawn()
 
 func _on_grab_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event.is_action_pressed("drag_fish"):

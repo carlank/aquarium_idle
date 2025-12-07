@@ -4,6 +4,7 @@ class_name FishData
 signal spawned()
 signal grown()
 
+## The common name of this species of fish
 @export var name := "Unnamed Fish"
 @export var sprite_frames: SpriteFrames
 
@@ -17,6 +18,9 @@ signal grown()
 @export var reward_amount := 1
 @export var reward_delay := 1.0
 @export var collects_coins := false
+
+@export var spawns_fish: FishData = null
+@export var spawn_delay := 5.0
 
 # How many seconds until this fish becomes an adult?
 @export var growth_delay := 10.0
