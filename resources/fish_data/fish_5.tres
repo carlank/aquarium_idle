@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="FishData" load_steps=3 format=3 uid="uid://c6tgjf88vdcju"]
+
+[ext_resource type="Script" uid="uid://b2wviu27f6v5i" path="res://resources/fish_data/fish_data.gd" id="1_fish5"]
+[ext_resource type="SpriteFrames" uid="uid://btkormq4taafp" path="res://resources/fish_data/fish_5_sprite_frames.tres" id="2_fish5"]
+
+[resource]
+script = ExtResource("1_fish5")
+name = "Goldfish"
+sprite_frames = ExtResource("2_fish5")
+cost = 20000
+sell_price = 25000
+thrust_max = 80.0
+lift_max = 20.0
+lift_delta_max = 3.0
+reward_amount = 100
+reward_delay = 3.0
+growth_delay = 120.0
+metadata/_custom_type_script = "uid://b2wviu27f6v5i"

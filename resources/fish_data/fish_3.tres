@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="FishData" load_steps=3 format=3 uid="uid://cuhtgu6nlqtqj"]
 
 [ext_resource type="Script" uid="uid://b2wviu27f6v5i" path="res://resources/fish_data/fish_data.gd" id="1_ynryc"]
-[ext_resource type="SpriteFrames" uid="uid://pwcxhaawgpns" path="res://resources/fish_data/fish_3_sprite_frams.tres" id="2_6pkye"]
+[ext_resource type="SpriteFrames" path="res://resources/fish_data/fish_3_sprite_frames.tres" id="2_6pkye"]
 
 [resource]
 script = ExtResource("1_ynryc")

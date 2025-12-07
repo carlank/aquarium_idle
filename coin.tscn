@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://2rbhi4ba71fi"]
+[gd_scene load_steps=12 format=3 uid="uid://2rbhi4ba71fi"]
 
 [ext_resource type="Script" uid="uid://n6t6tq2anhko" path="res://coin.gd" id="1_0t63x"]
 [ext_resource type="Texture2D" uid="uid://bw3u8xb2nrjxt" path="res://art/coin_1.png" id="2_v7riw"]
@@ -7,11 +7,43 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0t63x"]
 bounce = 0.5
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7riw"]
+atlas = ExtResource("2_v7riw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdq0q"]
+atlas = ExtResource("2_v7riw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w14il"]
+atlas = ExtResource("2_v7riw")
+region = Rect2(0, 0, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_i433e"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_v7riw")
+"texture": SubResource("AtlasTexture_v7riw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdq0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdq0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdq0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdq0q")
+}],
+"loop": true,
+"name": &"collected",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w14il")
 }],
 "loop": true,
 "name": &"default",
@@ -37,6 +69,9 @@ value_label = NodePath("ValueLabel")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=89599192]
 sprite_frames = SubResource("SpriteFrames_i433e")
+animation = &"collected"
+autoplay = "default"
+frame_progress = 0.23091003
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=908926187]
 shape = SubResource("CircleShape2D_mh3tg")
@@ -69,5 +104,8 @@ label_settings = SubResource("LabelSettings_0t63x")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="LifespanTimer" type="Timer" parent="." unique_id=77662256]
+
 [connection signal="area_entered" from="CollectArea2D" to="." method="_on_collect_area_2d_area_entered"]
 [connection signal="input_event" from="CollectArea2D" to="." method="_on_collect_area_2d_input_event"]
+[connection signal="timeout" from="LifespanTimer" to="." method="_on_lifespan_timer_timeout"]

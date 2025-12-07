@@ -40,3 +40,16 @@ func set_collection_radius(value) -> void:
 	collection_radius = value
 	collection_radius_changed.emit(old_value, collection_radius)
 #endregion
+
+#region coin_lifespan
+signal coin_lifespan_changed(old_value, new_value)
+@export var coin_lifespan := 1
+
+func add_coin_lifespan(value) -> void:
+	set_coin_lifespan(coin_lifespan + value)
+
+func set_coin_lifespan(value) -> void:
+	var old_value = coin_lifespan
+	coin_lifespan = value
+	coin_lifespan_changed.emit(old_value, coin_lifespan)
+#endregion

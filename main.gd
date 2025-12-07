@@ -3,11 +3,14 @@ extends Node2D
 @onready var coins_label: Label = %CoinsLabel
 @onready var capacity_label: Label = %CapacityLabel
 @onready var collection_radius_label: Label = %CollectionRadiusLabel
+@onready var coin_lifespan_label: Label = %CoinLifespanLabel
 
 @onready var tank: Tank = $Tank
 @onready var buy_vacuum_button: Button = %BuyVacuum
 @onready var buy_capacity_button: Button = %BuyCapacity
 @onready var buy_collection_radius_button: Button = %BuyCollectionRadius
+@onready var buy_coin_lifespan_button: Button = %BuyCoinLifespan
+
 
 @export var store_fish: Array[FishData] = []
 @onready var store: VBoxContainer = $CanvasLayer/VBoxContainer/Store
@@ -18,13 +21,19 @@ extends Node2D
 var vacuum_cost := 50
 var capacity_cost := 100
 var collection_radius_cost := 50
+var coin_lifespan_cost := 1
+var touchscreen := false
 
 func _ready() -> void:
+	if DisplayServer.is_touchscreen_available():
+		touchscreen = true
 	SignalBus.coin_collected.connect(Player.add_coins)
 	Player.coins_changed.connect(handle_coins_changed)
 	handle_coins_changed(0,Player.coins)
 	Player.collection_radius_changed.connect(func (old,new): set_collection_radius_label())
 	set_collection_radius_label()
+	Player.coin_lifespan_changed.connect(func (old,new): set_coin_lifespan_label())
+	set_coin_lifespan_label()
 	for fish_data in store_fish:
 		var fish_store_entry = fish_store_entry_scene.instantiate()
 		store.add_child(fish_store_entry)
@@ -33,12 +42,14 @@ func _ready() -> void:
 			fish_store_entry.update_text()
 			fish_store_entry.request_buy.connect(buy_fish.bind(fish_store_entry))
 			fish_store_entry.request_sell.connect(sell_fish.bind(fish_store_entry))
-
+	update_unlocks()
+	
 func handle_coins_changed(old, new):
 	coins_label.text = "Coins\n" + str(new)
 	buy_vacuum_button.disabled = new < vacuum_cost
 	buy_capacity_button.disabled = new < capacity_cost
 	buy_collection_radius_button.disabled = new < collection_radius_cost
+	buy_coin_lifespan_button.disabled = new < coin_lifespan_cost || len(tank.fishes) < 1
 
 
 func quit() -> void:
@@ -51,6 +62,9 @@ func set_capacity_label() -> void:
 func set_collection_radius_label() -> void:
 	collection_radius_label.text = "Collect Distance\n" + str(Player.collection_radius) 
 
+func set_coin_lifespan_label() -> void:
+	coin_lifespan_label.text = "Coin Lifespan\n" + str(Player.coin_lifespan)
+
 func buy_fish(fish_data, fish_store_entry) -> void:
 	var fish = add_fish(fish_data)
 	if fish != null:
@@ -61,6 +75,7 @@ func buy_fish(fish_data, fish_store_entry) -> void:
 func add_fish(fish_data) -> Fish:
 	if Player.spend_coins(fish_data.cost):
 		var fish = fish_scene.instantiate()
+		fish.fish_data = fish_data
 		if not tank.add_fish(fish): # Refund if the tank is unable to add the fish
 			Player.add_coins(fish_data.cost)
 			return null
@@ -102,7 +117,14 @@ func buy_collection_radius() -> void:
 		collection_radius_cost = ceili(collection_radius_cost * 2)
 		Player.add_collection_radius(1)
 		buy_collection_radius_button.text = "Buy +1 Merge/Collect Distance - " + str(collection_radius_cost) + " coins"
-		
+
+func buy_coin_lifespan() -> void:
+	if Player.spend_coins(coin_lifespan_cost):
+		coin_lifespan_cost += 1
+		Player.add_coin_lifespan(1)
+		buy_coin_lifespan_button.text = "Buy +1 Coin Lifespan - " + str(coin_lifespan_cost) + " coins"
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_add_money"):
 		Player.add_coins(10000)
@@ -111,3 +133,25 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("grow_all"):
 		for fish in tank.fishes:
 			fish.grow()
+
+
+#region unlocks
+
+
+@export var unlocks : Array[Unlock] = []
+
+	#Unlock.new("add_vacuum", buy_vacuum_button, func(): return Player.coins >= 5),
+	#Unlock.new("add_collection_radius", buy_collection_radius_button, func(): return Player.coins >= 15),
+	#Unlock.new("add_capacity", buy_capacity_button, func(): return Player.coins >= 10),
+	#Unlock.new("add_coin_lifespan", buy_coin_lifespan_button, func(): return Player.coins >= 1),
+
+func update_unlocks() -> void:
+	for unlock in unlocks:
+		unlock.update()
+
+
+func _on_update_timer_timeout() -> void:
+	update_unlocks()
+	handle_coins_changed(Player.coins, Player.coins)
+
+#endregion

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="FishData" load_steps=3 format=3 uid="uid://dva0mhhqhl50v"]
 
 [ext_resource type="Script" uid="uid://b2wviu27f6v5i" path="res://resources/fish_data/fish_data.gd" id="1_50o5u"]
-[ext_resource type="SpriteFrames" uid="uid://c6k1drldkmnxq" path="res://resources/fish_data/fish_1_sprite_frams.tres" id="2_50o5u"]
+[ext_resource type="SpriteFrames" path="res://resources/fish_data/fish_1_sprite_frames.tres" id="2_50o5u"]
 
 [resource]
 script = ExtResource("1_50o5u")
@@ -9,5 +9,5 @@ name = "Minnow"
 sprite_frames = ExtResource("2_50o5u")
 thrust_max = 50.0
 lift_max = 10.0
-growth_delay = 5.0
+growth_delay = 1.0
 metadata/_custom_type_script = "uid://b2wviu27f6v5i"

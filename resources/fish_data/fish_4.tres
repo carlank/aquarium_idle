@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="FishData" load_steps=3 format=3 uid="uid://ll1od5oia73f"]
+
+[ext_resource type="Script" uid="uid://b2wviu27f6v5i" path="res://resources/fish_data/fish_data.gd" id="1_newfish"]
+[ext_resource type="SpriteFrames" uid="uid://dfghpb7i0rbim" path="res://resources/fish_data/fish_4_sprite_frames.tres" id="2_newfish"]
+
+[resource]
+script = ExtResource("1_newfish")
+name = "Neon Tetra"
+sprite_frames = ExtResource("2_newfish")
+cost = 5000
+sell_price = 6000
+thrust_max = 100.0
+lift_max = 15.0
+lift_delta_max = 2.0
+reward_amount = 50
+reward_delay = 5.0
+growth_delay = 60.0
+metadata/_custom_type_script = "uid://b2wviu27f6v5i"

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce16ni1swcaqw"]
+
+[ext_resource type="Script" uid="uid://namdp7engtll" path="res://unlocks/unlock.gd" id="1_7jjxn"]
+
+[node name="Unlock" type="Node" unique_id=1769425625]
+script = ExtResource("1_7jjxn")
+metadata/_custom_type_script = "uid://namdp7engtll"
